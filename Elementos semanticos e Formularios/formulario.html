@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário com Explicações Técnicas</title>
+
+    <!-- 
+        A tag <style> é usada para adicionar CSS diretamente no documento HTML (Estilização Embutida ou Internal CSS).
+        Isso é útil para estilos específicos de uma única página. Para sites maiores, é recomendado usar um arquivo .css externo.
+    -->
+    <style>
+        @media (max-width: 600px) {
+            h1{
+                font-size: 1.5em;
+            }
+           .expansao{
+            visibility: hidden;
+            display: none;
+           }
+            button {
+                /* Faz com que os botões ocupem toda a largura disponível em telas pequenas. */
+                width: 100%;
+                /* Remove a margem à direita para evitar espaçamento desnecessário. */
+                margin-right: 0;
+                /* Adiciona uma margem inferior para separar os botões quando empilhados. */
+                margin-bottom: 10px;
+            }
+        }
+        body {
+            /* Define a família de fontes padrão para o corpo do documento. Usa Arial e, se não estiver disponível, uma fonte sans-serif genérica. */
+            font-family: Arial, sans-serif;
+            /* Define a cor de fundo da página. */
+            background-color: #f0f2f5;
+            /* Define a cor padrão do texto. */
+            color: #333;
+            /* Define a altura da linha para melhorar a legibilidade. */
+            line-height: 1.6;
+            /* Remove a margem padrão do navegador. */
+            margin: 0;
+            /* Adiciona um preenchimento (espaçamento interno) ao redor do conteúdo do corpo. */
+            padding: 20px;
+            /* Ativa o layout Flexbox para o corpo. */
+            display: flex;
+            /* Centraliza o conteúdo horizontalmente no contêiner flex. */
+            justify-content: center;
+            /* Centraliza o conteúdo verticalmente no contêiner flex. */
+            align-items: center;
+            /* Organiza os itens flex em uma coluna, um abaixo do outro. */
+            flex-direction: column;
+        }
+        .container {
+            /* Define a cor de fundo para elementos com a classe 'container'. */
+            background-color: #fff;
+            /* Adiciona preenchimento dentro do contêiner. */
+            padding: 25px;
+            /* Arredonda os cantos do contêiner. */
+            border-radius: 8px;
+            /* Adiciona uma sombra sutil para dar profundidade. */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            /* Define a largura máxima do contêiner. */
+            max-width: 600px;
+            /* Faz o contêiner ocupar 100% da largura de seu pai, até o máximo definido. */
+            width: 100%;
+        }
+        h1 {
+            /* Define a cor do texto para os elementos <h1>. */
+            color: #0056b3;
+            /* Centraliza o texto do h1. */
+            text-align: center;
+        }
+        /* Estiliza as divs que são filhas diretas de um formulário. */
+        form div {
+            /* Adiciona uma margem na parte inferior de cada div para espaçamento. */
+            margin-bottom: 15px;
+        }
+        label {
+            /* Faz com que o rótulo ocupe toda a largura disponível, quebrando a linha. */
+            display: block;
+            /* Adiciona uma margem na parte inferior do rótulo. */
+            margin-bottom: 5px;
+            /* Deixa o texto do rótulo em negrito. */
+            font-weight: bold;
+        }
+        /* Seleciona vários tipos de campos de entrada e a área de texto para aplicar estilos comuns. */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        select,
+        textarea {
+            /* Faz com que os campos ocupem 100% da largura do contêiner pai. */
+            width: 100%;
+            /* Adiciona preenchimento interno aos campos. */
+            padding: 10px;
+            /* Define uma borda sólida e cinza. */
+            border: 1px solid #ccc;
+            /* Arredonda os cantos dos campos. */
+            border-radius: 4px;
+            /* Garante que o preenchimento e a borda sejam incluídos na largura total do elemento. */
+            box-sizing: border-box; 
+        }
+        textarea {
+            /* Permite que o usuário redimensione a altura da área de texto, mas não a largura. */
+            resize: vertical; 
+            /* Define uma altura mínima para a área de texto. */
+            min-height: 100px;
+        }
+        fieldset {
+            /* Define uma borda para o grupo de campos. */
+            border: 1px solid #ccc;
+            /* Arredonda os cantos do fieldset. */
+            border-radius: 4px;
+            /* Adiciona preenchimento interno. */
+            padding: 10px;
+        }
+        legend {
+            /* Deixa o texto da legenda em negrito. */
+            font-weight: bold;
+            /* Adiciona um pequeno preenchimento horizontal para não tocar na borda do fieldset. */
+            padding: 0 5px;
+        }
+        /* Estiliza os rótulos dentro de grupos de botões de rádio e caixas de seleção. */
+        .radio-group label, .checkbox-group label {
+            /* Remove o negrito padrão dos rótulos. */
+            font-weight: normal;
+            /* Permite que o rótulo fique na mesma linha que o input. */
+            display: inline-block;
+            /* Adiciona uma margem à direita para espaçar os itens. */
+            margin-right: 15px;
+        }
+        button {
+            /* Define a cor de fundo do botão. */
+            background-color: #007bff;
+            /* Define a cor do texto do botão. */
+            color: white;
+            /* Adiciona preenchimento interno ao botão. */
+            padding: 12px 20px;
+            /* Remove a borda padrão do botão. */
+            border: none;
+            /* Arredonda os cantos do botão. */
+            border-radius: 4px;
+            /* Muda o cursor para uma mãozinha ao passar sobre o botão. */
+            cursor: pointer;
+            /* Define o tamanho da fonte do texto do botão. */
+            font-size: 16px;
+            /* Adiciona uma margem à direita para espaçar os botões. */
+            margin-right: 10px;
+        }
+        /* Estilo para o botão quando o mouse está sobre ele (hover). */
+        button:hover {
+            /* Escurece a cor de fundo do botão no hover. */
+            background-color: #0056b3;
+        }
+        /* Estilo específico para o botão de reset. */
+        button[type="reset"] {
+            /* Define uma cor de fundo diferente para o botão de reset. */
+            background-color: #6c757d;
+        }
+        /* Estilo para o botão de reset no estado de hover. */
+        button[type="reset"]:hover {
+            /* Escurece a cor de fundo do botão de reset no hover. */
+            background-color: #5a6268;
+        }
+        
+        .expansao {
+            /* Define um tamanho de fonte menor para o texto explicativo. */
+            font-size: 0.9em;
+            /* Define a cor do texto. */
+            color: #555;
+            /* Define uma cor de fundo clara. */
+            background-color: #e9ecef;
+            /* Adiciona preenchimento interno. */
+            padding: 10px;
+            /* Adiciona uma borda à esquerda para destaque. */
+            border-left: 4px solid #007bff;
+            /* Adiciona uma margem no topo para separar do elemento acima. */
+            margin-top: 5px;
+            /* Arredonda os cantos superior e inferior direitos. */
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Formulário de Cadastro</h1>
+        <!-- A tag <span> é usada para agrupar texto em linha. -->
+        <span>Preencha os campos abaixo:</span>
+
+
+        <!-- 
+            A tag <form> é o contêiner para diferentes tipos de elementos de entrada.
+            - action: Especifica a URL para onde os dados do formulário serão enviados. "#" é um placeholder.
+            - method: Especifica o método HTTP a ser usado ao enviar os dados (get ou post).
+              - GET: anexa os dados à URL (visível, limitado em tamanho).
+              - POST: envia os dados no corpo da requisição HTTP (invisível, sem limite de tamanho).
+        -->
+        <form action="#" method="post">
+
+            <!-- Campo de Texto: <input type="text"> -->
+            <div>
+                <!-- 
+                    A tag <label> define um rótulo para um elemento <input>.
+                    O atributo 'for' da label deve ser igual ao 'id' do input para associá-los.
+                    Isso melhora a acessibilidade (leitores de tela) e a usabilidade (clicar na label foca o input).
+                -->
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome_usuario" placeholder="Digite seu nome aqui" required>
+                <p class="expansao">
+                    <strong>&lt;input type="text"&gt;</strong>: Campo para entrada de texto de uma linha.<br>
+                    <strong>id</strong>: Identificador único para o elemento.<br>
+                    <strong>name</strong>: Nome do campo, usado para referenciar o dado quando o formulário é enviado.<br>
+                    <strong>placeholder</strong>: Dica de texto que aparece no campo antes do usuário digitar.<br>
+                    <strong>required</strong>: Atributo booleano que torna o preenchimento do campo obrigatório.
+                </p>
+            </div>
+
+            <!-- Campo de Email: <input type="email"> -->
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email_usuario" placeholder="seu.email@exemplo.com" required>
+                <p class="expansao">
+                    <strong>&lt;input type="email"&gt;</strong>: Campo específico para endereços de email. O navegador pode validar o formato do email automaticamente.
+                </p>
+            </div>
+
+            <!-- Campo de Senha: <input type="password"> -->
+            <div>
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha_usuario" minlength="8" required>
+                <p class="expansao">
+                    <strong>&lt;input type="password"&gt;</strong>: Campo de senha. Os caracteres digitados são mascarados (ex: ••••••••).<br>
+                    <strong>minlength="8"</strong>: Exige que a senha tenha no mínimo 8 caracteres.
+                </p>
+            </div>
+
+            <!-- Caixa de Seleção: <select> -->
+            <div>
+                <label for="plano">Plano:</label>
+                <select id="plano" name="plano_escolhido">
+                    <option value="">--Selecione um plano--</option>
+                    <option value="basico">Básico</option>
+                    <option value="premium">Premium</option>
+                    <option value="enterprise">Enterprise</option>
+                </select>
+                <p class="expansao">
+                    <strong>&lt;select&gt;</strong>: Cria uma lista suspensa (dropdown).<br>
+                    <strong>&lt;option&gt;</strong>: Define uma opção na lista. O atributo 'value' é o valor enviado com o formulário.
+                </p>
+            </div>
+
+            <!-- Botões de Rádio: <input type="radio"> -->
+            <div>
+                <!-- 
+                    <fieldset> agrupa elementos relacionados em um formulário.
+                    <legend> fornece uma legenda para o <fieldset>.
+                -->
+                <fieldset>
+                    <legend>Tipo de Conta:</legend>
+                    <div class="radio-group">
+                        <input type="radio" id="pessoal" name="tipo_conta" value="pessoal" checked>
+                        <label for="pessoal">Pessoal</label>
+                        
+                        <input type="radio" id="corporativa" name="tipo_conta" value="corporativa">
+                        <label for="corporativa">Corporativa</label>
+                    </div>
+                </fieldset>
+                <p class="expansao">
+                    <strong>&lt;input type="radio"&gt;</strong>: Permite que o usuário selecione apenas uma opção de um grupo. Todas as opções do mesmo grupo devem ter o mesmo atributo 'name'.<br>
+                    <strong>checked</strong>: Atributo booleano que pré-seleciona esta opção.
+                </p>
+            </div>
+
+            <!-- Caixa de Verificação: <input type="checkbox"> -->
+            <div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="termos" name="aceitou_termos" value="sim" required>
+                    <label for="termos">Eu li e aceito os termos de serviço</label>
+                </div>
+                <p class="expansao">
+                    <strong>&lt;input type="checkbox"&gt;</strong>: Permite que o usuário selecione uma ou mais opções. O atributo 'required' exige que a caixa seja marcada.
+                </p>
+            </div>
+
+            <!-- Área de Texto: <textarea> -->
+            <div>
+                <label for="mensagem">Mensagem (Opcional):</label>
+                <textarea id="mensagem" name="mensagem_usuario" rows="4" placeholder="Deixe uma mensagem..."></textarea>
+                <p class="expansao">
+                    <strong>&lt;textarea&gt;</strong>: Campo para entrada de texto de múltiplas linhas.<br>
+                    <strong>rows</strong>: Define a altura inicial do campo em número de linhas.
+                </p>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div>
+                <!-- 
+                    <button type="submit">: Envia os dados do formulário para o servidor (definido no 'action' do form).
+                    <button type="reset">: Limpa todos os campos do formulário para seus valores iniciais.
+                -->
+                <button type="submit">Enviar Cadastro</button>
+                <button type="reset">Limpar</button>
+                <p class="expansao">
+                    <strong>&lt;button type="submit"&gt;</strong>: Botão que, ao ser clicado, submete o formulário.<br>
+                    <strong>&lt;button type="reset"&gt;</strong>: Botão que reseta os campos do formulário.
+                </p>
+            </div>
+
+        </form>
+    </div>
+    <script>
+        // Mostrar alerta ao enviar o formulário
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio real do formulário
+            alert('Formulário enviado com sucesso!');
+        });
+    </script>
+</body>
+</html>

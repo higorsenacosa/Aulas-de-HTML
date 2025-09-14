@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <style>
+    
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: red;
+        }
+
+        @media (min-width: 601px) and (max-width: 1024px) {
+            
+            .conter{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .conter > main{
+                width: 100%;
+            }
+            .conter > aside{
+                width: 100%;
+            }
+            body {
+                background-color: blue;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+            .conter{
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            .conter > main{
+                width: 100%;
+            }
+            .conter > aside{
+                width: 100%;
+            }
+            body {
+                background-color: green;
+            }
+        }
+
+        header {
+            height: 64px;
+        }
+        .conter {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        aside {
+            width: 40%;
+            height: 100%;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>navegacao</title>
+</head>
+
+<body>
+    <header>
+        <!-- Conteudo onde ficara o cabeçalho da sua pagina -->
+        <!-- É o local onde normalmente é colocado o logo e o menu de navegação -->
+        <figure>
+            <img src="imagens/logo.png" alt="Logo do site">
+            <figcaption><!-- Caso seja uma figura que necessita de leganda 
+                coloque aqui a descrição -->
+            </figcaption>
+
+        </figure>
+        <nav>
+            <!-- Conteudo onde ficara o menu de navegação do seu site -->
+        </nav>
+    </header>
+    <div class="conter">
+        <aside>
+            <p>a</p>
+        </aside>
+        <main>
+            <!-- Conteudo principal do seu site -->
+            <article>
+                <figure>
+                    <img src="imagens/imagem1.jpg" alt="Descrição da imagem">
+                    <figcaption>Legenda da imagem</figcaption>
+                </figure>
+                <p></p>
+                <section>
+                    <h2>Subtítulo da seção</h2>
+                    <p></p>
+                </section>
+            </article>
+        </main>
+    </div>
+    <footer>
+        <!-- Conteudo onde ficara o rodapé do seu site -->
+    </footer>
+</body>
+
+</html>
