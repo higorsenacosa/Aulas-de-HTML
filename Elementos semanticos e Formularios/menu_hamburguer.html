@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu com Animação</title>
+    <style>
+        /* O seletor universal (*) aplica estas regras a todos os elementos da página. */
+        * {
+            margin: 0;
+            /* Remove a margem padrão que os navegadores aplicam aos elementos. */
+            padding: 0;
+            /* Remove o preenchimento (padding) padrão que os navegadores aplicam aos elementos. */
+        }
+
+        /* Estiliza o elemento <body>, que é o contêiner principal de todo o conteúdo visível. */
+        body {
+            font-family: sans-serif;
+            /* Define a família de fontes padrão para uma fonte sem serifa genérica. */
+        }
+
+        /* Estiliza o elemento <header>. */
+        header {
+            height: 64px;
+            /* Define uma altura fixa de 64 pixels para o cabeçalho. */
+            position: fixed;
+            /* Fixa o cabeçalho na tela; ele não se moverá com a rolagem da página. */
+            top: 0;
+            /* Posiciona o cabeçalho no topo da janela de visualização. */
+            left: 0;
+            /* Estica o cabeçalho até a borda esquerda. */
+            right: 0;
+            /* Estica o cabeçalho até a borda direita, fazendo-o ocupar toda a largura. */
+            z-index: 1000;
+            /* Garante que o cabeçalho fique sobre outros elementos da página. */
+        }
+
+        /* Estiliza o contêiner de navegação principal. */
+        .navegacao {
+            display: flex;
+            /* Ativa o layout Flexbox para alinhar os itens filhos em uma linha. */
+            align-items: center;
+            /* Alinha verticalmente os itens filhos ao centro. */
+            justify-content: space-between;
+            /* Distribui o espaço horizontalmente entre os itens filhos. */
+            background-color: #000;
+            /* Define a cor de fundo como preta. */
+            padding: 10px 20px;
+            /* Adiciona 10px de preenchimento em cima/baixo e 20px nas laterais. */
+            color: white;
+            /* Define a cor do texto padrão para branco. */
+            position: relative;
+            /* Necessário para posicionar o menu suspenso (.menu) em relação a este contêiner. */
+
+        }
+
+        /* Estiliza os links (<a>) dentro da navegação para desktop. */
+        .nav-desktop a {
+            color: white;
+            /* Define a cor do texto do link como branca. */
+            text-decoration: none;
+            /* Remove o sublinhado padrão dos links. */
+            margin: 0 10px;
+            /* Adiciona 10px de margem à esquerda e à direita de cada link. */
+            font-size: 14px;
+            /* Define o tamanho da fonte. */
+        }
+
+        /* Estiliza os links da navegação para desktop quando o mouse passa sobre eles. */
+        .nav-desktop a:hover {
+            transition: transform 1s;
+            /* Aplica uma transição suave a qualquer mudança na propriedade 'transform'. */
+            color: #dc232b;
+            /* Muda a cor do texto para vermelho ao passar o mouse. */
+        }
+
+        /* Estiliza o contêiner da barra de pesquisa. */
+        .navegacao .pesquisa {
+            display: flex;
+            /* Usa Flexbox para alinhar o input e o botão. */
+            align-items: center;
+            /* Alinha verticalmente o input e o botão ao centro. */
+            background-color: white;
+            /* Define um fundo branco para o contêiner da pesquisa. */
+            border-radius: 6px;
+            /* Arredonda os cantos do contêiner. */
+        }
+
+        /* Estiliza o campo de input da pesquisa. */
+        .navegacao .pesquisa input {
+            padding: 5px;
+            /* Adiciona espaço interno ao campo de input. */
+            border: none;
+            /* Remove a borda padrão. */
+            border-radius: 3px;
+            /* Arredonda levemente os cantos. */
+        }
+
+        /* Estiliza o botão da pesquisa. */
+        .navegacao .pesquisa button {
+            background-color: #444;
+            /* Define a cor de fundo como cinza escuro. */
+            border: none;
+            /* Remove a borda. */
+            padding: 5px 10px;
+            /* Adiciona espaço interno ao botão. */
+            border-radius: 3px;
+            /* Arredonda os cantos. */
+            cursor: pointer;
+            /* Muda o cursor para uma mão para indicar que é clicável. */
+            margin-left: 5px;
+            /* Adiciona uma pequena margem à esquerda do botão. */
+        }
+
+        /* Estiliza o contêiner dos botões de usuário. */
+        .navegacao .usuario {
+            display: flex;
+            /* Usa Flexbox para alinhar os itens. */
+            align-items: center;
+            /* Alinha verticalmente os itens ao centro. */
+        }
+
+        /* Estiliza os botões dentro da seção do usuário. */
+        .navegacao .usuario button {
+            background-color: #444;
+            /* Define a cor de fundo como cinza escuro. */
+            border: none;
+            /* Remove a borda. */
+            padding: 5px 10px;
+            /* Adiciona espaço interno. */
+            margin-left: 5px;
+            /* Adiciona margem à esquerda. */
+            border-radius: 3px;
+            /* Arredonda os cantos. */
+            cursor: pointer;
+            /* Muda o cursor para uma mão. */
+            color: white;
+            /* Define a cor do texto como branca. */
+            display: flex;
+            /* Permite alinhar o ícone e o texto dentro do botão, se houver. */
+            align-items: center;
+            /* Alinha verticalmente o conteúdo do botão. */
+        }
+
+        /* Estiliza o checkbox que controla a visibilidade do menu móvel. */
+        .menu-toggle {
+            display: none;
+            /* Esconde o checkbox por padrão. */
+        }
+
+        /* Estiliza o contêiner do ícone de hambúrguer (o label do checkbox). */
+        .hamburger {
+            display: none;
+            /* Esconde o ícone de hambúrguer por padrão em telas maiores. */
+        }
+
+        /* Estiliza as linhas que formam o ícone de hambúrguer. */
+        .linha {
+            display: block;
+            /* Faz com que cada linha ocupe sua própria linha. */
+            width: 100%;
+            /* Define a largura da linha para preencher o contêiner do hambúrguer. */
+            height: 3px;
+            /* Define a espessura da linha. */
+            background-color: white;
+            /* Define a cor da linha como branca. */
+            border-radius: 3px;
+            /* Arredonda as pontas da linha. */
+            transition: all 0.3s ease-in-out;
+            /* Anima todas as propriedades que mudam (transform, opacity) em 0.3s. */
+        }
+
+        /* Estiliza a lista do menu suspenso (móvel). */
+        .menu {
+            max-height: 0;
+            /* Define a altura máxima como 0 para esconder o menu por padrão. */
+            overflow: hidden;
+            /* Esconde o conteúdo que transborda quando o menu está fechado. */
+            transition: max-height 0.4s ease-in-out;
+            /* Anima a abertura/fechamento do menu. */
+            list-style: none;
+            /* Remove os marcadores de lista (bolinhas). */
+            position: absolute;
+            /* Posiciona o menu em relação ao seu ancestral posicionado mais próximo (.navegacao). */
+            top: 100%;
+            /* Posiciona o menu logo abaixo do cabeçalho. */
+            left: 0;
+            /* Alinha o menu à borda esquerda do cabeçalho. */
+            width: 100%;
+            /* Faz o menu ocupar toda a largura do cabeçalho. */
+            background-color: #000;
+            /* Define a cor de fundo como preta. */
+            padding: 0;
+            /* Remove o preenchimento quando o menu está fechado. */
+            z-index: 1000;
+            /* Garante que o menu fique sobre o conteúdo da página. */
+        }
+
+        /* Estiliza cada item da lista do menu. */
+        .menu li {
+            text-align: center;
+            /* Centraliza o texto dentro de cada item da lista. */
+        }
+
+        /* Estiliza os links dentro do menu. */
+        .menu li a {
+            color: white;
+            /* Define a cor do texto como branca. */
+            text-decoration: none;
+            /* Remove o sublinhado. */
+            font-size: 18px;
+            /* Define o tamanho da fonte. */
+            display: block;
+            /* Faz o link ocupar toda a largura do item da lista, tornando a área clicável maior. */
+            padding: 15px;
+            /* Adiciona espaço interno para facilitar o clique. */
+        }
+
+        /* Estiliza os links do menu quando o mouse passa sobre eles. */
+        .menu li a:hover {
+            background-color: #333;
+            /* Muda a cor de fundo para cinza escuro ao passar o mouse. */
+        }
+
+        /* --- Lógica do Menu Hambúrguer --- */
+
+        /* Quando o checkbox (.menu-toggle) está marcado, aplica este estilo ao seu irmão (.menu). */
+        .menu-toggle:checked~.menu {
+            max-height: 500px;
+            /* Aumenta a altura máxima para um valor grande o suficiente para mostrar todo o menu. */
+            padding: 10px 0;
+            /* Adiciona preenchimento vertical ao menu aberto. */
+        }
+
+        /* Quando o checkbox está marcado, estiliza a primeira linha do hambúrguer para formar um 'X'. */
+        .menu-toggle:checked~.hamburger .linha-1 {
+            transform: rotate(45deg) translate(7px, 7px);
+            /* Gira e move a linha para formar a parte superior do 'X'. */
+        }
+
+        /* Quando o checkbox está marcado, esconde a linha do meio do hambúrguer. */
+        .menu-toggle:checked~.hamburger .linha-2 {
+            opacity: 0;
+            /* Torna a linha do meio invisível. */
+        }
+
+        /* Quando o checkbox está marcado, estiliza a terceira linha do hambúrguer para formar um 'X'. */
+        .menu-toggle:checked~.hamburger .linha-3 {
+            transform: rotate(-45deg) translate(7px, -7px);
+            /* Gira e move a linha para formar a parte inferior do 'X'. */
+        }
+
+        /* Media Query: Aplica os estilos a seguir apenas em telas com largura máxima de 900px. */
+        @media (max-width: 900px) {
+
+            /* Oculta a navegação de desktop, a pesquisa e os botões de usuário. */
+            .nav-desktop,
+            .pesquisa,
+            .usuario {
+                display: none;
+            }
+
+            /* Estiliza o contêiner do ícone de hambúrguer para telas menores. */
+            .hamburger {
+                cursor: pointer;
+                /* Mostra o cursor de mão. */
+                padding: 10px;
+                /* Adiciona área de clique ao redor do ícone. */
+                display: flex;
+                /* Torna o ícone de hambúrguer visível. */
+                flex-direction: column;
+                /* Empilha as linhas do hambúrguer verticalmente. */
+                justify-content: space-around;
+                /* Distribui o espaço verticalmente entre as linhas. */
+                width: 35px;
+                /* Define a largura do ícone. */
+                height: 35px;
+                /* Define a altura do ícone. */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- O elemento <body> contém todo o conteúdo visível de uma página da web. -->
+
+    <!-- O elemento <header> representa o cabeçalho da página, geralmente contendo o logotipo e a navegação. -->
+    <header>
+        <!-- A div .navegacao é o contêiner principal para todos os elementos de navegação. -->
+        <div class="navegacao">
+
+            <!-- A tag <img> exibe o logotipo do site. O atributo 'alt' fornece um texto alternativo para a imagem. -->
+            <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/254_Phoenix_Framework_logo-256.png"
+                alt="Logo" width="32px" height="32px">
+
+            <!-- O elemento <nav> contém os links de navegação principais para a versão desktop. -->
+            <nav class="nav-desktop">
+                <a href="#">Sobre</a>
+                <a href="#">Serviços</a>
+                <a href="#">Contato</a>
+                <a href="#">Blog</a>
+                <a href="#">Carreiras</a>
+            </nav>
+            <!-- Esta div contém o campo de pesquisa e o botão de busca. -->
+            <div class="pesquisa">
+                <input type="text" placeholder="Pesquisar...">
+                <button><img src="https://cdn1.iconfinder.com/data/icons/unicons-line-vol-5/24/search-alt-256.png"
+                        alt="Buscar" width="16px" height="16px"></button>
+            </div>
+            <!-- Esta div agrupa os botões de ação do usuário, como "Entrar" e "Cadastrar". -->
+            <div class="usuario">
+                <button><img src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-64.png" alt="Usuário"
+                        width="16px" height="16px">Entrar</button>
+                <button><img src="https://cdn3.iconfinder.com/data/icons/miscellaneous-80/60/add_user-256.png"
+                        alt="Usuário" width="16px" height="16px">Cadastrar</button>
+            </div>
+
+            <!-- Este é um checkbox oculto que controla o estado (aberto/fechado) do menu móvel. -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+            <!-- O <label> está associado ao checkbox. Clicar nele (o ícone de hambúrguer) marca/desmarca o checkbox. -->
+            <label for="menu-toggle" class="hamburger">
+                <!-- As três tags <span> criam as linhas do ícone de hambúrguer que será animado com CSS. -->
+                <span class="linha linha-1"></span>
+                <span class="linha linha-2"></span>
+                <span class="linha linha-3"></span>
+            </label>
+
+            <!-- A lista <ul> representa o menu de navegação que aparece em telas menores (menu móvel). -->
+            <ul class="menu">
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Serviços</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Carreiras</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+
+        </div>
+    </header>
+</body>
+
+</html>
